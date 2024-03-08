@@ -7,6 +7,7 @@ async function getBlogList(): Promise<BlogType[]> {
   const res: any = await fetch(gitHubIssuesUrl, {
     method: "GET",
     headers: getGitHubApiHeader(token),
+    next: { tags: ["blogList"] },
   });
   const data = await res.json();
   const formattedData = data.map(getFormattedData);
