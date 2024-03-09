@@ -18,7 +18,7 @@ export default function Modal() {
           onClick={clickBgHandler}
           className="absolute z-10 bg-opacity-45 bg-black inset-0"
         >
-          <div className="absolute  bg-white inset-y-20 inset-x-96 sm:inset-x-40 rounded-2xl py-16 px-10">
+          <div className="absolute  bg-white inset-y-20 inset-x-96 sm:inset-x-40 rounded-2xl pt-16 pb-10 px-20">
             <Button onClick={closeModal} className="absolute right-5 top-5">
               X
             </Button>

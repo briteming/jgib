@@ -7,7 +7,6 @@ export default function Button({
   return (
     <button
       {...restProps}
-      type="button"
       className={
         "border rounded-md p-2 hover:bg-blue-100 " + restProps.className
       }
