@@ -1,5 +1,5 @@
 import getBlog from "@/api/getBlog";
-import { getFormattedDate } from "@/utils/date";
+import { getFormattedDate } from "@/utils/dateHelper";
 
 export default async function Page({ params }: { params: { blogId: string } }) {
   const { title, body, createdAt, updatedAt } = await getBlog(params.blogId);

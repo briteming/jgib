@@ -1,6 +1,6 @@
 import { gitHubIssuesUrl } from "@/constants/urls";
 import type { BlogType } from "@/types/blogType";
-import { getGitHubApiHeader } from "@/utils/api";
+import { getGitHubApiHeader } from "@/utils/apiHelper";
 async function getBlogList(): Promise<BlogType[]> {
   const token = process.env.ACCESS_TOKEN;
   if (!token) throw new Error("ACCESS_TOKEN is not found");

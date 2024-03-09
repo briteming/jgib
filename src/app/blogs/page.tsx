@@ -1,13 +1,10 @@
 import BlogList from "./components/BlogList";
-import OauthCallbackWrapper from "./components/OauthCallbackWrapper";
+import BlogListWrapper from "./components/BlogListWrapper";
 
 export default function Page() {
   return (
-    <div>
-      <h1>My Blog</h1>
-      <OauthCallbackWrapper>
-        <BlogList />
-      </OauthCallbackWrapper>
-    </div>
+    <BlogListWrapper>
+      <BlogList />
+    </BlogListWrapper>
   );
 }

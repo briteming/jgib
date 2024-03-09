@@ -1,7 +1,7 @@
 "use server";
 import { gitHubUserUrl } from "@/constants/urls";
 import { UserType } from "@/types/userType";
-import { getGitHubApiHeader } from "@/utils/api";
+import { getGitHubApiHeader } from "@/utils/apiHelper";
 import { cookies } from "next/headers";
 
 async function getUser(): Promise<UserType> {

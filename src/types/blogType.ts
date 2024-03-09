@@ -9,6 +9,8 @@ export interface BlogType extends UpdateBlogType {
   updatedAt: string;
 }
 
+export interface AddBlogType extends UpdateBlogType {}
+
 export type BlogStatusType = {
   state: "open" | "closed";
 };

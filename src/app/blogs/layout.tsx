@@ -1,5 +1,5 @@
+import Modal from "@/components/Modal";
 import React from "react";
-import Modal from "./components/Modal";
 
 export default function BlogLayout({ children }: React.PropsWithChildren) {
   return (

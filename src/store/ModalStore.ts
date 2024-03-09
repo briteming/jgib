@@ -1,18 +1,34 @@
-import { UpdateBlogType } from "@/types/blogType";
+import { ReactElement } from "react";
 import { create } from "zustand";
 
+type ModalButtonType = {
+  confirmText: string;
+  cancelText: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+};
+
 type ModalStoreType = {
-  id: string;
   isOpen: boolean;
-  content: UpdateBlogType;
-  openModal: (id: string, content: UpdateBlogType) => void;
+  content: ReactElement | null;
+  buttonInfo: ModalButtonType;
+  openModal: (content: ReactElement | null) => void;
   closeModal: () => void;
 };
 
-export const useBlogStore = create<ModalStoreType>((set) => ({
-  id: "",
+export const useModalStore = create<ModalStoreType>((set) => ({
   isOpen: false,
-  content: { title: "", body: "" },
-  openModal: (id, content) => set({ isOpen: true, content, id }),
+  content: null,
+  buttonInfo: {
+    confirmText: "confirm",
+    cancelText: "cancel",
+    onConfirm: () => set({ isOpen: false }),
+    onCancel: () => set({ isOpen: false }),
+  },
+  openModal: (content) =>
+    set({
+      isOpen: true,
+      content,
+    }),
   closeModal: () => set({ isOpen: false }),
 }));
