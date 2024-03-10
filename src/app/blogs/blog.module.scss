@@ -1,0 +1,147 @@
+.blog {
+  /* Headings */
+  h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h4 {
+    display: block;
+    font-size: 1em;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h5 {
+    display: block;
+    font-size: 0.83em;
+    margin-block-start: 1.67em;
+    margin-block-end: 1.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h6 {
+    display: block;
+    font-size: 0.67em;
+    margin-block-start: 2.33em;
+    margin-block-end: 2.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  /* Paragraphs */
+  p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  /* Links */
+  a {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* Lists */
+  ul,
+  ol {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+
+  /* List Items */
+  li {
+    display: list-item;
+  }
+
+  /* Images */
+  img {
+    display: inline-block;
+    border-style: none;
+  }
+
+  /* Blockquote */
+  blockquote {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    // margin-inline-start: 40px;
+    // margin-inline-end: 40px;
+    border-left: 2px solid #999; /* Change the border color if needed */
+    padding-left: 10px; /* Add padding for better appearance */
+    color: #666; /* Change the text color to a lighter shade */
+  }
+
+  /* Code */
+  code {
+    font-family: monospace;
+  }
+
+  /* Preformatted Text */
+  pre {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0;
+  }
+
+  /* Horizontal Rule */
+  hr {
+    display: block;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    border-style: inset;
+    border-width: 1px;
+  }
+
+  /* Form Elements */
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+    margin: 0;
+    color: inherit;
+  }
+}

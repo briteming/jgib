@@ -7,6 +7,7 @@ import { useModalStore } from "@/store/ModalStore";
 import { BlogType } from "@/types/blogType";
 import { getFormattedDate } from "@/utils/dateHelper";
 import { BlogActionEnum } from "@/utils/enum";
+import { marked } from "marked";
 import Link from "next/link";
 import PostForm from "./PostForm";
 type propsType = {
@@ -30,8 +31,11 @@ export default function BlogBlock({ blogItem, isAuthor }: propsType) {
       <h2 className="mb-2">
         <Link href={`blogs/${id}`}>{title}</Link>
       </h2>
-      <div className="flex justify-between">
-        <p>{body}</p>
+      <div className="flex justify-between ">
+        <div
+          className="line-clamp-6"
+          dangerouslySetInnerHTML={{ __html: marked(body) }}
+        ></div>
         {isAuthor && (
           <div>
             <Button onClick={editBlogHandler}>edit</Button>
