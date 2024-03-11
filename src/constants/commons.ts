@@ -1,4 +1,5 @@
 const userName = "Jim876633";
 const repoName = "Github-test";
+const showPerPage = 10;
 
-export { repoName, userName };
+export { repoName, showPerPage, userName };

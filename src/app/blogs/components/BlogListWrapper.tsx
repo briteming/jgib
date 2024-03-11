@@ -2,11 +2,14 @@
 import getAccessToken from "@/api/getAccessToken";
 import Button from "@/components/Button";
 import { useModalStore } from "@/store/ModalStore";
+import { BlogActionEnum } from "@/utils/enum";
 import { PropsWithChildren, useEffect } from "react";
 import PostForm from "./PostForm";
-import { BlogActionEnum } from "@/utils/enum";
 
-export default function BlogListWrapper({ children }: PropsWithChildren) {
+export default function BlogListWrapper({
+  children,
+  isAuthor,
+}: PropsWithChildren<{ isAuthor: boolean }>) {
   const { openModal } = useModalStore();
 
   const addPostHandler = () => {
@@ -31,9 +34,11 @@ export default function BlogListWrapper({ children }: PropsWithChildren) {
   return (
     <div className="relative">
       <h1>My Blog</h1>
-      <Button onClick={addPostHandler} className="absolute right-0 top-0">
-        New Post
-      </Button>
+      {isAuthor && (
+        <Button onClick={addPostHandler} className="absolute right-0 top-0">
+          New Post
+        </Button>
+      )}
       {children}
     </div>
   );

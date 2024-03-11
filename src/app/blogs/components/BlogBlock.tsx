@@ -9,12 +9,14 @@ import { getFormattedDate } from "@/utils/dateHelper";
 import { BlogActionEnum } from "@/utils/enum";
 import { marked } from "marked";
 import Link from "next/link";
+import { Ref, forwardRef } from "react";
 import PostForm from "./PostForm";
 type propsType = {
   blogItem: BlogType;
   isAuthor: boolean;
 };
-export default function BlogBlock({ blogItem, isAuthor }: propsType) {
+const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
+  const { blogItem, isAuthor } = props;
   const { title, body, id, createdAt } = blogItem;
   const { openModal } = useModalStore();
   const editBlogHandler = async () => {
@@ -27,7 +29,7 @@ export default function BlogBlock({ blogItem, isAuthor }: propsType) {
     }
   };
   return (
-    <div className="border-b-2 px-3 py-5">
+    <div className="border-b-2 px-3 py-5" ref={ref}>
       <h2 className="mb-2">
         <Link href={`blogs/${id}`}>{title}</Link>
       </h2>
@@ -46,4 +48,8 @@ export default function BlogBlock({ blogItem, isAuthor }: propsType) {
       </div>
     </div>
   );
-}
+});
+
+BlogBlock.displayName = "BlogBlock";
+
+export default BlogBlock;
