@@ -5,3 +5,7 @@ import { revalidateTag } from "next/cache";
 export const blogListAction = () => {
   revalidateTag("blogList");
 };
+
+export const commentListAction = () => {
+  revalidateTag("commentList");
+};

@@ -5,6 +5,9 @@
 :root {
   --primary-color: #f3c614;
   --secondary-color: #353535;
+  --comment-bg: #ffffff;
+  --textarea-bg: #f6f8fa;
+  --comment-border: #e0e0e0;
 }
 
 body {
@@ -16,5 +19,5 @@ h1 {
 }
 
 h2 {
-  @apply text-2xl;
+  @apply text-3xl;
 }
