@@ -1,17 +1,21 @@
 import getBlog from "@/api/getBlog";
 import getCommentList from "@/api/getCommentList";
 import getUser from "@/api/getUser";
-import Button from "@/components/Button";
+import EditorButton from "@/components/button/EditorButton";
+import { userName } from "@/constants/commons";
 import { getFormattedDate } from "@/utils/dateHelper";
 import { marked } from "marked";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
 
 export default async function Page({ params }: { params: { blogId: string } }) {
+  const blogItem = await getBlog(params.blogId);
   const commentList = await getCommentList(params.blogId);
   const user = await getUser();
+  const isAuthor = user.name === userName;
 
-  const { title, body, createdAt, updatedAt } = await getBlog(params.blogId);
+  const { title, body, createdAt, updatedAt } = blogItem;
+
   return (
     <div>
       <h2>{title}</h2>
@@ -20,9 +24,11 @@ export default async function Page({ params }: { params: { blogId: string } }) {
       <p className="text-right">
         <i>Last update at {getFormattedDate(updatedAt)}</i>
       </p>
-      <div className="text-right">
-        <Button>Edit</Button>
-      </div>
+      {isAuthor && (
+        <div className="text-right">
+          <EditorButton blogItem={blogItem} />
+        </div>
+      )}
       {user.name && <CommentInput user={user} blogId={params.blogId} />}
       <Comment commentList={commentList} />
     </div>

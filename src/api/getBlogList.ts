@@ -4,7 +4,6 @@ import { gitHubIssuesUrl } from "@/constants/urls";
 import type { BlogType } from "@/types/blogType";
 import { getGitHubApiHeader } from "@/utils/apiHelper";
 async function getBlogList(page = 1): Promise<BlogType[]> {
-  console.log(page);
   const token = process.env.ACCESS_TOKEN;
   if (!token) throw new Error("ACCESS_TOKEN is not found");
   const res: any = await fetch(

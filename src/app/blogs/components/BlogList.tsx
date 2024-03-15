@@ -14,6 +14,7 @@ export default function BlogList({ isAuthor, initialBlogList }: propsType) {
   const [hasMore, setHasMore] = useState(true);
   const pageRef = useRef(1);
   const lastDivRef = useRef(null);
+  const previousBlogRef = useRef<BlogType[]>([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   const loadMoreContent = useCallback(async () => {
@@ -41,24 +42,32 @@ export default function BlogList({ isAuthor, initialBlogList }: propsType) {
       threshold: 0.5,
     };
 
-    observerRef.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (
-          entry.isIntersecting &&
-          entry.target === lastDivRef.current &&
-          hasMore
-        ) {
-          loadMoreContent();
-        }
-      });
-    }, options);
+    if (blogList.length !== previousBlogRef.current.length) {
+      observerRef.current = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (
+            entry.isIntersecting &&
+            entry.target === lastDivRef.current &&
+            hasMore
+          ) {
+            loadMoreContent();
+          }
+        });
+      }, options);
 
-    observerRef.current.observe(lastDivRef.current);
+      observerRef.current.observe(lastDivRef.current);
 
+      previousBlogRef.current === blogList;
+    }
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [loadMoreContent, blogList, hasMore]);
+  }, [loadMoreContent, hasMore, blogList]);
+
+  // reset blogList when initialBlogList is changed
+  useEffect(() => {
+    setBlogList(initialBlogList);
+  }, [initialBlogList]);
 
   return (
     <div>

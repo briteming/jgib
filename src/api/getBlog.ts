@@ -25,9 +25,9 @@ export default getBlog;
 /* -------------------------------------------------------------------------- */
 
 function getFormattedData(data: any): BlogType {
-  const { id, title, body, created_at, updated_at } = data;
+  const { number, title, body, created_at, updated_at } = data;
   return {
-    id: id.toString(),
+    id: number.toString(),
     title,
     body,
     createdAt: created_at,

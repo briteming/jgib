@@ -1,6 +1,6 @@
 "use client";
 import getAccessToken from "@/api/getAccessToken";
-import Button from "@/components/Button";
+import Button from "@/components/button/Button";
 import { useModalStore } from "@/store/ModalStore";
 import { BlogActionEnum } from "@/utils/enum";
 import { PropsWithChildren, useEffect } from "react";

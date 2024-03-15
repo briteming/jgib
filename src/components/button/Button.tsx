@@ -1,3 +1,4 @@
+"use client";
 import { ComponentPropsWithRef, PropsWithChildren } from "react";
 
 export default function Button({
@@ -8,7 +9,8 @@ export default function Button({
     <button
       {...restProps}
       className={
-        "border rounded-md p-2 hover:bg-blue-100 " + restProps.className
+        "border rounded-md p-2 hover:bg-blue-100 disabled:cursor-not-allowed disabled:hover:bg-white " +
+        restProps.className
       }
     >
       {children}

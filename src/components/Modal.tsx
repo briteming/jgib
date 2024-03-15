@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/components/Button";
+import Button from "@/components/button/Button";
 import { useModalStore } from "@/store/ModalStore";
 import { MouseEventHandler } from "react";
 

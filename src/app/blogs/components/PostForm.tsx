@@ -1,7 +1,7 @@
 import addBlog from "@/api/addBlog";
 import updateBlog from "@/api/updateBlog";
 import { blogListAction } from "@/app/actions";
-import Button from "@/components/Button";
+import Button from "@/components/button/Button";
 import { useModalStore } from "@/store/ModalStore";
 import { BlogType, UpdateBlogType } from "@/types/blogType";
 import { BlogActionEnum } from "@/utils/enum";

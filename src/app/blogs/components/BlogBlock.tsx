@@ -2,15 +2,13 @@
 
 import updateBlog from "@/api/updateBlog";
 import { blogListAction } from "@/app/actions";
-import Button from "@/components/Button";
-import { useModalStore } from "@/store/ModalStore";
+import Button from "@/components/button/Button";
+import EditorButton from "@/components/button/EditorButton";
 import { BlogType } from "@/types/blogType";
 import { getFormattedDate } from "@/utils/dateHelper";
-import { BlogActionEnum } from "@/utils/enum";
 import { marked } from "marked";
 import Link from "next/link";
 import { Ref, forwardRef } from "react";
-import PostForm from "./PostForm";
 type propsType = {
   blogItem: BlogType;
   isAuthor: boolean;
@@ -18,10 +16,6 @@ type propsType = {
 const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
   const { blogItem, isAuthor } = props;
   const { title, body, id, createdAt } = blogItem;
-  const { openModal } = useModalStore();
-  const editBlogHandler = async () => {
-    openModal(<PostForm blogItem={blogItem} action={BlogActionEnum.UPDATE} />);
-  };
   const deleteBlogHandler = async () => {
     const isSuccess = await updateBlog(id, { state: "closed" });
     if (isSuccess) {
@@ -40,7 +34,7 @@ const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
         ></div>
         {isAuthor && (
           <div>
-            <Button onClick={editBlogHandler}>edit</Button>
+            <EditorButton blogItem={blogItem} />
             <Button onClick={deleteBlogHandler}>delete</Button>
           </div>
         )}

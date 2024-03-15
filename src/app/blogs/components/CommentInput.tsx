@@ -1,7 +1,7 @@
 "use client";
 import addComment from "@/api/addComment";
 import { commentListAction } from "@/app/actions";
-import Button from "@/components/Button";
+import Button from "@/components/button/Button";
 import { UserType } from "@/types/userType";
 import Image from "next/image";
 import { FormEventHandler, useState } from "react";
