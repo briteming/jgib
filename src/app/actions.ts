@@ -2,8 +2,9 @@
 
 import { revalidateTag } from "next/cache";
 
-export const blogListAction = () => {
+export const blogAction = () => {
   revalidateTag("blogList");
+  revalidateTag("blogItem");
 };
 
 export const commentListAction = () => {

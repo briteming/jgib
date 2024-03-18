@@ -1,6 +1,6 @@
 import addBlog from "@/api/addBlog";
 import updateBlog from "@/api/updateBlog";
-import { blogListAction } from "@/app/actions";
+import { blogAction } from "@/app/actions";
 import Button from "@/components/button/Button";
 import { useModalStore } from "@/store/ModalStore";
 import { BlogType, UpdateBlogType } from "@/types/blogType";
@@ -39,12 +39,12 @@ export default function PostForm(props: propsType) {
     if (action === BlogActionEnum.UPDATE) {
       const isSuccess = await updateBlog(props.blogItem.id, { title, body });
       if (isSuccess) {
-        blogListAction();
+        blogAction();
       }
     } else {
       const isSuccess = await addBlog({ title, body });
       if (isSuccess) {
-        blogListAction();
+        blogAction();
       }
     }
     closeModal();

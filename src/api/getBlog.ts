@@ -7,6 +7,7 @@ async function getBlog(id: string): Promise<BlogType> {
   const res: any = await fetch(`${gitHubIssuesUrl}/${id}`, {
     method: "GET",
     headers: getGitHubApiHeader(token),
+    next: { tags: ["blogItem"] },
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary

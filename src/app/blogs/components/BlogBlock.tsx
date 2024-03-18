@@ -1,7 +1,7 @@
 "use client";
 
 import updateBlog from "@/api/updateBlog";
-import { blogListAction } from "@/app/actions";
+import { blogAction } from "@/app/actions";
 import Button from "@/components/button/Button";
 import EditorButton from "@/components/button/EditorButton";
 import { BlogType } from "@/types/blogType";
@@ -19,7 +19,7 @@ const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
   const deleteBlogHandler = async () => {
     const isSuccess = await updateBlog(id, { state: "closed" });
     if (isSuccess) {
-      blogListAction();
+      blogAction();
     }
   };
   return (
