@@ -4,7 +4,7 @@ import style from "./blog.module.scss";
 
 export default function BlogLayout({ children }: React.PropsWithChildren) {
   return (
-    <div className={`${style.blog} py-10`}>
+    <div className={`${style.blog} py-10 h-full`}>
       <Modal />
       {children}
     </div>

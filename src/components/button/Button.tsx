@@ -1,17 +1,24 @@
 "use client";
-import { ComponentPropsWithRef, PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren } from "react";
+
+type propsType = {
+  variant?: "contained" | "outlined";
+};
 
 export default function Button({
   children,
+  variant = "contained",
   ...restProps
-}: PropsWithChildren & ComponentPropsWithRef<"button">) {
+}: PropsWithChildren<propsType> & ComponentProps<"button">) {
+  const variantClass =
+    variant === "contained"
+      ? "bg-secondary hover:bg-primary "
+      : "hover:bg-primaryOpacity";
   return (
     <button
       {...restProps}
-      className={
-        "border rounded-md p-2 hover:bg-blue-100 disabled:cursor-not-allowed disabled:hover:bg-white " +
-        restProps.className
-      }
+      className={`flex justify-center items-center border border-primary rounded-md p-2  disabled:cursor-not-allowed disabled:hover:bg-white 
+          ${restProps.className ?? ""} ${variantClass}`}
     >
       {children}
     </button>

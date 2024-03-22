@@ -71,9 +71,12 @@
 
   /* Links */
   a {
-    color: blue;
+    color: var(--primary-color);
     text-decoration: underline;
     cursor: pointer;
+    &:hover {
+      color: var(--secondary-color);
+    }
   }
 
   /* Lists */

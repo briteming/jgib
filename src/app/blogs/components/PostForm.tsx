@@ -59,7 +59,7 @@ export default function PostForm(props: propsType) {
         <input
           type="text"
           id="title"
-          className="w-full border-black border border-1 rounded-md p-2"
+          className="input"
           defaultValue={initialTitle}
           {...register("title")}
         />
@@ -72,7 +72,7 @@ export default function PostForm(props: propsType) {
       <div className="flex gap-5 flex-1 relative">
         <label htmlFor="body">Body:</label>
         <textarea
-          className="w-full h-full resize-none border border-black border-1 rounded-md p-2"
+          className="input h-full resize-none"
           id="body"
           defaultValue={initialBody}
           {...register("body")}
@@ -83,9 +83,11 @@ export default function PostForm(props: propsType) {
           </p>
         )}
       </div>
-      <div className="flex gap-10 justify-end">
-        <Button onClick={closeModal}>Cancel</Button>
-        <Button type="submit">
+      <div className="flex gap-5 self-end w-40">
+        <Button onClick={closeModal} variant="outlined" className="flex-1">
+          Cancel
+        </Button>
+        <Button type="submit" className="flex-1">
           {action === BlogActionEnum.UPDATE ? "Update" : "Create"}
         </Button>
       </div>

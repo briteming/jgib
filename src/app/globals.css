@@ -4,7 +4,8 @@
 
 :root {
   --primary-color: #f3c614;
-  --secondary-color: #353535;
+  --secondary-color: #f7d94b;
+  --primary-color-opacity: rgba(243, 198, 20, 0.3);
   --comment-bg: #ffffff;
   --textarea-bg: #f6f8fa;
   --comment-border: #e0e0e0;
@@ -20,4 +21,12 @@ h1 {
 
 h2 {
   @apply text-3xl;
+}
+
+.input {
+  @apply w-full border border-black rounded-md p-2 focus:outline-primary;
+}
+
+* {
+  transition: background 0.1s ease-in-out;
 }
