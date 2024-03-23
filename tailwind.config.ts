@@ -10,6 +10,7 @@ const config: Config = {
     colors: {
       ...colors,
       primary: "var(--primary-color)",
+      primaryBg: "var(--primary-bg)",
       primaryOpacity: "var(--primary-color-opacity)",
       secondary: "var(--secondary-color)",
       commentBg: "var(--comment-bg)",

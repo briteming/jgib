@@ -4,7 +4,8 @@
 
 :root {
   --primary-color: #f3c614;
-  --secondary-color: #f7d94b;
+  --secondary-color: #fcd845;
+  --primary-bg: #fdfcf6;
   --primary-color-opacity: rgba(243, 198, 20, 0.3);
   --comment-bg: #ffffff;
   --textarea-bg: #f6f8fa;

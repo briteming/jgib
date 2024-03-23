@@ -71,11 +71,11 @@
 
   /* Links */
   a {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     text-decoration: underline;
     cursor: pointer;
     &:hover {
-      color: var(--secondary-color);
+      color: var(--primary-color);
     }
   }
 
