@@ -34,7 +34,7 @@ const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
       <div className="flex flex-col gap-5">
         <div
           className="line-clamp-6"
-          dangerouslySetInnerHTML={{ __html: marked(body) }}
+          dangerouslySetInnerHTML={{ __html: marked(body ?? "") }}
         ></div>
         <div className="text-end">
           {isAuthor && (

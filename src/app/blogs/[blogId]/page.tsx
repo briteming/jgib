@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: { blogId: string } }) {
         {isAuthor && <EditorButton blogItem={blogItem} className="w-20" />}
       </div>
       <p className="text-right">Created at {getFormattedDate(createdAt)}</p>
-      <div dangerouslySetInnerHTML={{ __html: marked(body) }}></div>
+      <div dangerouslySetInnerHTML={{ __html: marked(body ?? "") }}></div>
       <p className="text-right py-5">
         <i>Last update at {getFormattedDate(updatedAt)}</i>
       </p>

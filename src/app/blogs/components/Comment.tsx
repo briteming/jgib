@@ -31,7 +31,7 @@ export default function Comment({ commentList }: propsType) {
             </div>
             <div
               className="p-2"
-              dangerouslySetInnerHTML={{ __html: marked(body) }}
+              dangerouslySetInnerHTML={{ __html: marked(body ?? "") }}
             />
           </div>
         );
