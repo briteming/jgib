@@ -29,5 +29,7 @@ h2 {
 }
 
 * {
-  transition: background 0.1s ease-in-out;
+  transition:
+    background 0.1s ease-in-out,
+    scale 0.2s ease-in-out;
 }

@@ -17,7 +17,7 @@ export default function Button({
   return (
     <button
       {...restProps}
-      className={`flex justify-center items-center border border-primary rounded-md p-2  disabled:cursor-not-allowed disabled:hover:bg-white 
+      className={`flex justify-center items-center border border-primary rounded-md p-2  disabled:cursor-not-allowed disabled:bg-white disabled:hover:bg-white disabled:hover:scale-100 hover:scale-105  
           ${restProps.className ?? ""} ${variantClass}`}
     >
       {children}
