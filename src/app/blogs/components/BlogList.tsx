@@ -1,5 +1,6 @@
 "use client";
 import getBlogList from "@/api/getBlogList";
+import Spinner from "@/components/Spinner";
 import { BlogType } from "@/types/blogType";
 import { useCallback, useEffect, useRef, useState } from "react";
 import BlogBlock from "./BlogBlock";
@@ -81,7 +82,9 @@ export default function BlogList({ isAuthor, initialBlogList }: propsType) {
           />
         );
       })}
-      {hasMore ? <span>...loading</span> : <span>...No more</span>}
+      <div className="mt-5 w-20 mx-auto">
+        {hasMore ? <Spinner /> : <i>...No more</i>}
+      </div>
     </div>
   );
 }

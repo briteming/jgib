@@ -11,6 +11,7 @@ import { marked } from "marked";
 import Image from "next/image";
 import Link from "next/link";
 import { Ref, forwardRef } from "react";
+import style from "./../blog.module.scss";
 
 type propsType = {
   blogItem: BlogType;
@@ -27,7 +28,7 @@ const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
     }
   };
   return (
-    <div className="border-b-2 px-3 py-5 relative" ref={ref}>
+    <div className={`${style.blog} border-b-2 px-3 py-5 relative`} ref={ref}>
       <h2 className="mb-2 pr-44">
         <Link href={`blogs/${id}`}>{title}</Link>
       </h2>

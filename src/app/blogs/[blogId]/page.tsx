@@ -5,6 +5,7 @@ import EditorButton from "@/components/button/EditorButton";
 import { userName } from "@/constants/commons";
 import { getFormattedDate } from "@/utils/dateHelper";
 import { marked } from "marked";
+import style from "../blog.module.scss";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
 
@@ -17,7 +18,7 @@ export default async function Page({ params }: { params: { blogId: string } }) {
   const { title, body, createdAt, updatedAt } = blogItem;
 
   return (
-    <div className="relative">
+    <div className={`${style.blog} relative`}>
       <div className="flex gap-3 justify-between items-center">
         <h1 className="flex-1">{title}</h1>
         {isAuthor && <EditorButton blogItem={blogItem} className="w-20" />}

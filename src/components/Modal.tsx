@@ -20,10 +20,10 @@ export default function Modal() {
           onClick={clickBgHandler}
           className="fixed z-10 bg-opacity-45 bg-black inset-0"
         >
-          <div className="absolute bg-white inset-y-20 inset-x-96 sm:inset-x-40 rounded-2xl pt-16 pb-10 px-20">
+          <div className="absolute bg-white inset-y-20 inset-x-10 sm:inset-x-20 lg:inset-x-60 xl:inset-x-80 rounded-2xl pt-16 pb-10 px-20">
             <Button
               onClick={closeModal}
-              className="absolute right-5 top-5 !rounded-full"
+              className="absolute right-5 top-5 !rounded-full !px-2"
             >
               <Image src={closeIcon} alt="close" width={20} height={20} />
             </Button>

@@ -35,7 +35,7 @@ export default function BlogListWrapper({
 
   return (
     <div className="relative">
-      <h1>My Blog</h1>
+      <h1 className="text-5xl">My Blog</h1>
       {isAuthor && (
         <Button onClick={addPostHandler} className="absolute right-0 top-0">
           <Image src={fileIcon} alt="new post" width={20} height={20} />
