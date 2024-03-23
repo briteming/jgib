@@ -1,10 +1,11 @@
 import { gitHubIssuesUrl } from "@/constants/urls";
 import type { BlogType } from "@/types/blogType";
-import { getGitHubApiHeader } from "@/utils/apiHelper";
+import { IGithubIssue } from "@/types/githubType";
+import { getFormattedBlog, getGitHubApiHeader } from "@/utils/apiHelper";
 async function getBlog(id: string): Promise<BlogType> {
   const token = process.env.ACCESS_TOKEN;
   if (!token) throw new Error("ACCESS_TOKEN is not found");
-  const res: any = await fetch(`${gitHubIssuesUrl}/${id}`, {
+  const res = await fetch(`${gitHubIssuesUrl}/${id}`, {
     method: "GET",
     headers: getGitHubApiHeader(token),
     next: { tags: ["blogItem"] },
@@ -14,24 +15,9 @@ async function getBlog(id: string): Promise<BlogType> {
     throw new Error("Failed to fetch data");
   }
 
-  const data = await res.json();
-  const formattedData = getFormattedData(data);
+  const data = (await res.json()) as IGithubIssue;
+  const formattedData = getFormattedBlog(data);
   return formattedData;
 }
 
 export default getBlog;
-
-/* -------------------------------------------------------------------------- */
-/*                               utils function                               */
-/* -------------------------------------------------------------------------- */
-
-function getFormattedData(data: any): BlogType {
-  const { number, title, body, created_at, updated_at } = data;
-  return {
-    id: number.toString(),
-    title,
-    body,
-    createdAt: created_at,
-    updatedAt: updated_at,
-  };
-}
