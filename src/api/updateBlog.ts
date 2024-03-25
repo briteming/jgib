@@ -3,14 +3,13 @@
 import { gitHubIssuesUrl } from "@/constants/urls";
 import { BlogStatusType, UpdateBlogType } from "@/types/blogType";
 import { getGitHubApiHeader } from "@/utils/apiHelper";
-import { cookies } from "next/headers";
+import { getCookie } from "@/utils/cookiesHelper";
 
 async function updateBlog(
   id: string,
   body: UpdateBlogType | BlogStatusType
 ): Promise<boolean> {
-  const cookieStore = cookies();
-  const token = cookieStore.get("accessToken")?.value;
+  const token = await getCookie("accessToken");
   if (!token) return false;
 
   const res = await fetch(`${gitHubIssuesUrl}/${id}`, {

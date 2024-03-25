@@ -2,14 +2,13 @@
 
 import { gitHubIssuesUrl } from "@/constants/urls";
 import { getGitHubApiHeader } from "@/utils/apiHelper";
-import { cookies } from "next/headers";
+import { getCookie } from "@/utils/cookiesHelper";
 
 async function addComment(
   id: string,
   comment: { body: string }
 ): Promise<boolean> {
-  const cookieStore = cookies();
-  const token = cookieStore.get("accessToken")?.value;
+  const token = await getCookie("accessToken");
   if (!token) return false;
 
   const res = await fetch(`${gitHubIssuesUrl}/${id}/comments`, {

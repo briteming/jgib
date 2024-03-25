@@ -3,11 +3,10 @@ import { gitHubUserUrl } from "@/constants/urls";
 import { IGithubUser } from "@/types/githubType";
 import { UserType } from "@/types/userType";
 import { getFormattedUser, getGitHubApiHeader } from "@/utils/apiHelper";
-import { cookies } from "next/headers";
+import { getCookie } from "@/utils/cookiesHelper";
 
 async function getUser(): Promise<UserType> {
-  const cookieStore = cookies();
-  const token = cookieStore.get("accessToken")?.value;
+  const token = await getCookie("accessToken");
   if (!token) return {} as UserType;
   const res = await fetch(gitHubUserUrl, {
     method: "GET",
@@ -15,7 +14,7 @@ async function getUser(): Promise<UserType> {
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    throw new Error(res.status.toString());
   }
 
   const data = (await res.json()) as IGithubUser;
