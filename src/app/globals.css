@@ -10,6 +10,10 @@
   --comment-bg: #ffffff;
   --textarea-bg: #f6f8fa;
   --comment-border: #e0e0e0;
+  --success-bg: #e5f6eb;
+  --success-border: #6bd076;
+  --fail-bg: #f6d9d7;
+  --fail-border: #e58c88;
 }
 
 body {
