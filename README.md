@@ -84,11 +84,13 @@ The project will be available at `http://localhost:3000`.
 ├─ 📂 api
 ├─ 📂 app
 │ ├─ 📂 about
-│ ├─ 📄 actions.ts
 │ ├─ 📂 blogs
 │ │ ├─ 📂 [blogId]
-│ │ ├─ 📄 blog.module.scss
+│ │ │ ├─ 📄 error.tsx
+│ │ │ ├─ 📄 loading.tsx
+│ │ │ └─ 📄 page.tsx
 │ │ ├─ 📂 components
+│ │ ├─ 📄 blog.module.scss
 │ │ ├─ 📄 layout.tsx
 │ │ ├─ 📄 loading.tsx
 │ │ └─ 📄 page.tsx
@@ -101,16 +103,20 @@ The project will be available at `http://localhost:3000`.
 ├─ 📂 assets
 │ └─ 📂 img
 ├─ 📂 components
+│ ├─ 📂 button
+│ ├─ 📂 skeleton
+│ ├─ 📄 Alert.tsx
+│ ├─ 📄 LoadingMask.tsx
 │ ├─ 📄 Modal.tsx
 │ ├─ 📄 Navbar.tsx
 │ ├─ 📄 Spinner.tsx
-│ ├─ 📂 button
-│ ├─ 📂 skeleton
-│ ├─ 📄 BlogListSkeleton.tsx
-│ └─ 📄 BlogSkeleton.tsx
+│ └─ 📄 Transition.tsx
+├─ 📂 components
 ├─ 📂 constants
 │ ├─ 📄 commons.ts
 │ └─ 📄 urls.ts
+├─ 📂 hooks
+│ └─ 📄 useServerAction.ts
 ├─ 📂 store
 │ └─ 📄 ModalStore.ts
 ├─ 📂 types
