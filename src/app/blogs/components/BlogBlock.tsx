@@ -1,16 +1,18 @@
 "use client";
 
 import updateBlog from "@/api/updateBlog";
-import { blogAction } from "@/app/actions";
 import trashIcon from "@/assets/img/trash.svg";
 import Button from "@/components/button/Button";
 import EditorButton from "@/components/button/EditorButton";
+import { useServerAction } from "@/hooks/useServerAction";
+import { useAlertStore } from "@/store/AlertStore";
 import { BlogType } from "@/types/blogType";
 import { getFormattedDate } from "@/utils/dateHelper";
+import { AlertStatusEnum } from "@/utils/enum";
 import { marked } from "marked";
 import Image from "next/image";
 import Link from "next/link";
-import { Ref, forwardRef } from "react";
+import { Ref, forwardRef, useEffect, useRef } from "react";
 import style from "./../blog.module.scss";
 
 type propsType = {
@@ -21,12 +23,32 @@ type propsType = {
 const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
   const { blogItem, isAuthor } = props;
   const { title, body, id, createdAt } = blogItem;
+  const { showSuccessAlert, showFailAlert } = useAlertStore();
+  const [updateBlogAction, isUpdatePending] = useServerAction(updateBlog);
+  const actionResRef = useRef<undefined | string>();
+
   const deleteBlogHandler = async () => {
-    const isSuccess = await updateBlog(id, { state: "closed" });
-    if (isSuccess) {
-      blogAction();
-    }
+    const isSuccess = await updateBlogAction({
+      id,
+      blogItem: { state: "closed" },
+    });
+
+    isSuccess
+      ? (actionResRef.current = AlertStatusEnum.SUCCESS)
+      : (actionResRef.current = AlertStatusEnum.FAIL);
   };
+
+  useEffect(() => {
+    if (!isUpdatePending) {
+      if (actionResRef.current === AlertStatusEnum.SUCCESS) {
+        showSuccessAlert("delete success!");
+      }
+      if (actionResRef.current === AlertStatusEnum.FAIL) {
+        showFailAlert("delete fail!");
+      }
+    }
+  }, [isUpdatePending, showSuccessAlert, showFailAlert]);
+
   return (
     <div className={`${style.blog} border-b-2 px-3 py-5 relative`} ref={ref}>
       <h2 className="mb-2 pr-44">

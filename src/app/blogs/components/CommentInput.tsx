@@ -1,11 +1,13 @@
 "use client";
 import addComment from "@/api/addComment";
-import { commentListAction } from "@/app/actions";
 import Spinner from "@/components/Spinner";
 import Button from "@/components/button/Button";
+import { useServerAction } from "@/hooks/useServerAction";
+import { useAlertStore } from "@/store/AlertStore";
 import { UserType } from "@/types/userType";
+import { AlertStatusEnum } from "@/utils/enum";
 import Image from "next/image";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useRef, useState } from "react";
 
 type propsType = {
   user: UserType;
@@ -14,23 +16,38 @@ type propsType = {
 
 export default function CommentInput({ user, blogId }: propsType) {
   const [inputValue, setInputValue] = useState("");
-  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+  const [addCommentAction, isAddCommentPending] = useServerAction(addComment);
+  const { showSuccessAlert, showFailAlert } = useAlertStore();
+  const apiStatusRef = useRef<undefined | string>();
 
   const submitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    setIsSubmitLoading(true);
-    const isSuccess = await addComment(blogId, { body: inputValue });
-    if (isSuccess) {
-      commentListAction();
-    }
     setInputValue("");
-    setIsSubmitLoading(false);
+    const isSuccess = await addCommentAction({
+      id: blogId,
+      comment: { body: inputValue },
+    });
+    apiStatusRef.current = isSuccess
+      ? AlertStatusEnum.SUCCESS
+      : AlertStatusEnum.FAIL;
   };
+
+  useEffect(() => {
+    if (!isAddCommentPending) {
+      if (apiStatusRef.current === AlertStatusEnum.SUCCESS) {
+        showSuccessAlert("Add comment success!");
+      }
+      if (apiStatusRef.current === AlertStatusEnum.FAIL) {
+        showFailAlert("Add comment failed!");
+      }
+    }
+  }, [isAddCommentPending, showFailAlert, showSuccessAlert]);
+
   return (
     <div className="border border-commentBorder rounded-lg p-4 bg-commentBg mt-5">
       <form onSubmit={submitHandler}>
         <textarea
-          disabled={isSubmitLoading}
+          disabled={isAddCommentPending}
           rows={3}
           value={inputValue}
           placeholder="Comment..."
@@ -43,7 +60,11 @@ export default function CommentInput({ user, blogId }: propsType) {
           </span>
           <span className="font-bold">{user.name}</span>
           <Button className="w-24 h-10" type="submit" disabled={!inputValue}>
-            {isSubmitLoading ? <Spinner width="w-5" height="h-5" /> : "Comment"}
+            {isAddCommentPending ? (
+              <Spinner width="w-5" height="h-5" />
+            ) : (
+              "Comment"
+            )}
           </Button>
         </div>
       </form>

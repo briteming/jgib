@@ -32,7 +32,7 @@ const AlertChild = forwardRef((_, ref: Ref<HTMLDivElement>) => {
   return (
     <div
       ref={ref}
-      className={`fixed bottom-8 right-10 px-3 py-2 border rounded-sm ${isSuccess ? "bg-successBg border-successBorder" : "bg-failBg border-failBorder"}`}
+      className={`fixed z-10 bottom-8 right-10 px-3 py-2 border rounded-sm ${isSuccess ? "bg-successBg border-successBorder" : "bg-failBg border-failBorder"}`}
     >
       {message}
     </div>

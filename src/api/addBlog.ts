@@ -4,6 +4,7 @@ import { gitHubIssuesUrl } from "@/constants/urls";
 import { AddBlogType } from "@/types/blogType";
 import { getGitHubApiHeader } from "@/utils/apiHelper";
 import { getCookie } from "@/utils/cookiesHelper";
+import { revalidateTag } from "next/cache";
 
 async function addBlog(body: AddBlogType): Promise<boolean> {
   const token = await getCookie("accessToken");
@@ -14,6 +15,10 @@ async function addBlog(body: AddBlogType): Promise<boolean> {
     headers: getGitHubApiHeader(token),
     body: JSON.stringify(body),
   });
+
+  if (res.ok) {
+    revalidateTag("blogList");
+  }
 
   return res.ok;
 }

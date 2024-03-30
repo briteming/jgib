@@ -1,12 +1,15 @@
+"use client";
 import addBlog from "@/api/addBlog";
 import updateBlog from "@/api/updateBlog";
-import { blogAction } from "@/app/actions";
 import Button from "@/components/button/Button";
+import { useServerAction } from "@/hooks/useServerAction";
+import { useAlertStore } from "@/store/AlertStore";
 import { useModalStore } from "@/store/ModalStore";
 import { BlogType, UpdateBlogType } from "@/types/blogType";
-import { BlogActionEnum } from "@/utils/enum";
+import { AlertStatusEnum, BlogActionEnum } from "@/utils/enum";
 import { BlogSchema } from "@/utils/validate";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type updatePropsType = {
@@ -21,10 +24,17 @@ type createPropsType = {
 type propsType = updatePropsType | createPropsType;
 
 export default function PostForm(props: propsType) {
-  const { closeModal } = useModalStore();
   const { action } = props;
+  const isUpdateBlog = action === BlogActionEnum.UPDATE;
+  const isCreateBlog = action === BlogActionEnum.CREATE;
+  const [updateBlogAction, isUpdatePending] = useServerAction(updateBlog);
+  const [createBlogAction, isCreatePending] = useServerAction(addBlog);
+  const { closeModal } = useModalStore();
+  const { showSuccessAlert, showFailAlert } = useAlertStore();
+  const apiStatusRef = useRef<undefined | string>();
+
   let [initialTitle, initialBody] = ["", ""];
-  if (props.action === BlogActionEnum.UPDATE) {
+  if (isUpdateBlog) {
     initialTitle = props.blogItem.title;
     initialBody = props.blogItem.body;
   }
@@ -36,19 +46,53 @@ export default function PostForm(props: propsType) {
   } = useForm<UpdateBlogType>({ resolver: zodResolver(BlogSchema) });
 
   const submit: SubmitHandler<UpdateBlogType> = async ({ title, body }) => {
-    if (action === BlogActionEnum.UPDATE) {
-      const isSuccess = await updateBlog(props.blogItem.id, { title, body });
-      if (isSuccess) {
-        blogAction();
+    let isSuccess: boolean | undefined = false;
+    if (isUpdateBlog) {
+      isSuccess = await updateBlogAction({
+        id: props.blogItem.id,
+        blogItem: { title, body },
+      });
+    }
+    if (isCreateBlog) {
+      isSuccess = await createBlogAction({ title, body });
+    }
+    apiStatusRef.current = isSuccess
+      ? AlertStatusEnum.SUCCESS
+      : AlertStatusEnum.FAIL;
+  };
+
+  useEffect(() => {
+    if ((!isUpdatePending || !isCreatePending) && apiStatusRef.current) {
+      let type = "";
+      switch (action) {
+        case BlogActionEnum.UPDATE:
+          type = "Update";
+          break;
+        case BlogActionEnum.CREATE:
+          type = "Add blog";
+          break;
+        default:
+          type = "No type found...";
+          break;
       }
-    } else {
-      const isSuccess = await addBlog({ title, body });
-      if (isSuccess) {
-        blogAction();
+      if (apiStatusRef.current === AlertStatusEnum.SUCCESS) {
+        showSuccessAlert(`${type} success!`);
+        closeModal();
+      }
+      if (apiStatusRef.current === AlertStatusEnum.FAIL) {
+        showFailAlert(`${type} success!`);
+        closeModal();
       }
     }
-    closeModal();
-  };
+  }, [
+    action,
+    closeModal,
+    isUpdatePending,
+    isCreatePending,
+    showFailAlert,
+    showSuccessAlert,
+  ]);
+
   return (
     <form
       onSubmit={handleSubmit(submit)}
