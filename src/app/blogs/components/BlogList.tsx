@@ -70,6 +70,9 @@ export default function BlogList({ isAuthor, initialBlogList }: propsType) {
     setBlogList(initialBlogList);
   }, [initialBlogList]);
 
+  if (blogList.length === 0)
+    return <h2 className="my-10 italic">The blog has not been added yet.</h2>;
+
   return (
     <div>
       {blogList.map((blogItem: BlogType, index) => {
