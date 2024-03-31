@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import colors from "tailwindcss/colors";
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,19 +6,20 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      ...colors,
-      primary: "var(--primary-color)",
-      primaryBg: "var(--primary-bg)",
-      primaryOpacity: "var(--primary-color-opacity)",
-      secondary: "var(--secondary-color)",
-      commentBg: "var(--comment-bg)",
-      commentBorder: "var(--comment-border)",
-      textareaBg: "var(--textarea-bg)",
-      successBg: "var(--success-bg)",
-      successBorder: "var(--success-border)",
-      failBg: "var(--fail-bg)",
-      failBorder: "var(--fail-border)",
+    extend: {
+      colors: {
+        primary: "var(--primary-color)",
+        primaryBg: "var(--primary-bg)",
+        primaryOpacity: "var(--primary-color-opacity)",
+        secondary: "var(--secondary-color)",
+        commentBg: "var(--comment-bg)",
+        commentBorder: "var(--comment-border)",
+        textareaBg: "var(--textarea-bg)",
+        successBg: "var(--success-bg)",
+        successBorder: "var(--success-border)",
+        failBg: "var(--fail-bg)",
+        failBorder: "var(--fail-border)",
+      },
     },
   },
   plugins: [],
