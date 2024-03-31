@@ -7,22 +7,26 @@ type AlertStoreType = {
   isShow: boolean;
   status: AlertStatusType;
   message: string;
-  showSuccessAlert: (message?: string) => void;
-  showFailAlert: (message?: string) => void;
-  hideAlert: () => void;
 };
 
-export const useAlertStore = create<AlertStoreType>((set) => ({
+export const useAlertStore = create<AlertStoreType>(() => ({
   isShow: false,
   status: AlertStatusEnum.SUCCESS,
   message: "Success",
-  showSuccessAlert: (message = "Success") => {
-    set({ isShow: true, status: AlertStatusEnum.SUCCESS, message });
-  },
-  showFailAlert: (message = "Fail") => {
-    set({ isShow: true, status: AlertStatusEnum.FAIL, message });
-  },
-  hideAlert: () => {
-    set({ isShow: false });
-  },
 }));
+
+export const showSuccessAlert = (message = "Success") =>
+  useAlertStore.setState({
+    isShow: true,
+    status: AlertStatusEnum.SUCCESS,
+    message,
+  });
+
+export const showFailAlert = (message = "Fail") =>
+  useAlertStore.setState({
+    isShow: true,
+    status: AlertStatusEnum.FAIL,
+    message,
+  });
+
+export const hideAlert = () => useAlertStore.setState({ isShow: false });

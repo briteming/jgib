@@ -3,9 +3,9 @@ import addBlog from "@/api/addBlog";
 import updateBlog from "@/api/updateBlog";
 import Button from "@/components/button/Button";
 import { useServerAction } from "@/hooks/useServerAction";
-import { useAlertStore } from "@/store/AlertStore";
 import { useModalStore } from "@/store/ModalStore";
 import { BlogType, UpdateBlogType } from "@/types/blogType";
+import { handleAlert } from "@/utils/alertHelper";
 import { AlertStatusEnum, BlogActionEnum } from "@/utils/enum";
 import { BlogSchema } from "@/utils/validate";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,8 +30,7 @@ export default function PostForm(props: propsType) {
   const [updateBlogAction, isUpdatePending] = useServerAction(updateBlog);
   const [createBlogAction, isCreatePending] = useServerAction(addBlog);
   const { closeModal } = useModalStore();
-  const { showSuccessAlert, showFailAlert } = useAlertStore();
-  const apiStatusRef = useRef<undefined | string>();
+  const apiStatusRef = useRef<undefined | AlertStatusEnum>();
 
   let [initialTitle, initialBody] = ["", ""];
   if (isUpdateBlog) {
@@ -62,7 +61,7 @@ export default function PostForm(props: propsType) {
   };
 
   useEffect(() => {
-    if ((!isUpdatePending || !isCreatePending) && apiStatusRef.current) {
+    if (!isUpdatePending || !isCreatePending) {
       let type = "";
       switch (action) {
         case BlogActionEnum.UPDATE:
@@ -75,23 +74,17 @@ export default function PostForm(props: propsType) {
           type = "No type found...";
           break;
       }
-      if (apiStatusRef.current === AlertStatusEnum.SUCCESS) {
-        showSuccessAlert(`${type} success!`);
-        closeModal();
-      }
-      if (apiStatusRef.current === AlertStatusEnum.FAIL) {
-        showFailAlert(`${type} success!`);
-        closeModal();
-      }
+      handleAlert({
+        status: apiStatusRef.current,
+        alertText: {
+          success: `${type} success!`,
+          fail: `${type} fail!`,
+        },
+        onSuccessResult: closeModal,
+        onFailResult: closeModal,
+      });
     }
-  }, [
-    action,
-    closeModal,
-    isUpdatePending,
-    isCreatePending,
-    showFailAlert,
-    showSuccessAlert,
-  ]);
+  }, [action, closeModal, isUpdatePending, isCreatePending]);
 
   return (
     <form

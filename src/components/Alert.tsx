@@ -1,5 +1,5 @@
 "use client";
-import { useAlertStore } from "@/store/AlertStore";
+import { hideAlert, useAlertStore } from "@/store/AlertStore";
 import { AlertStatusEnum } from "@/utils/enum";
 import { Ref, forwardRef, useEffect } from "react";
 import Transition from "./Transition";
@@ -11,7 +11,7 @@ export default function Alert() {
     let time: ReturnType<typeof setTimeout>;
     if (isShow) {
       time = setTimeout(() => {
-        useAlertStore.getState().hideAlert();
+        hideAlert();
       }, 1500);
     }
     return () => {

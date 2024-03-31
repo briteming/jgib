@@ -5,8 +5,8 @@ import trashIcon from "@/assets/img/trash.svg";
 import Button from "@/components/button/Button";
 import EditorButton from "@/components/button/EditorButton";
 import { useServerAction } from "@/hooks/useServerAction";
-import { useAlertStore } from "@/store/AlertStore";
 import { BlogType } from "@/types/blogType";
+import { handleAlert } from "@/utils/alertHelper";
 import { getFormattedDate } from "@/utils/dateHelper";
 import { AlertStatusEnum } from "@/utils/enum";
 import { marked } from "marked";
@@ -23,9 +23,8 @@ type propsType = {
 const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
   const { blogItem, isAuthor } = props;
   const { title, body, id, createdAt } = blogItem;
-  const { showSuccessAlert, showFailAlert } = useAlertStore();
   const [updateBlogAction, isUpdatePending] = useServerAction(updateBlog);
-  const actionResRef = useRef<undefined | string>();
+  const actionResRef = useRef<undefined | AlertStatusEnum>();
 
   const deleteBlogHandler = async () => {
     const isSuccess = await updateBlogAction({
@@ -40,14 +39,12 @@ const BlogBlock = forwardRef((props: propsType, ref: Ref<HTMLDivElement>) => {
 
   useEffect(() => {
     if (!isUpdatePending) {
-      if (actionResRef.current === AlertStatusEnum.SUCCESS) {
-        showSuccessAlert("delete success!");
-      }
-      if (actionResRef.current === AlertStatusEnum.FAIL) {
-        showFailAlert("delete fail!");
-      }
+      handleAlert({
+        status: actionResRef.current,
+        alertText: { success: "delete success!", fail: "delete fail!" },
+      });
     }
-  }, [isUpdatePending, showSuccessAlert, showFailAlert]);
+  }, [isUpdatePending]);
 
   return (
     <div className={`${style.blog} border-b-2 px-3 py-5 relative`} ref={ref}>

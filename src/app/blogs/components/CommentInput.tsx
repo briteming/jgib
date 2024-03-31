@@ -3,8 +3,8 @@ import addComment from "@/api/addComment";
 import Spinner from "@/components/Spinner";
 import Button from "@/components/button/Button";
 import { useServerAction } from "@/hooks/useServerAction";
-import { useAlertStore } from "@/store/AlertStore";
 import { UserType } from "@/types/userType";
+import { handleAlert } from "@/utils/alertHelper";
 import { AlertStatusEnum } from "@/utils/enum";
 import Image from "next/image";
 import { FormEventHandler, useEffect, useRef, useState } from "react";
@@ -17,8 +17,7 @@ type propsType = {
 export default function CommentInput({ user, blogId }: propsType) {
   const [inputValue, setInputValue] = useState("");
   const [addCommentAction, isAddCommentPending] = useServerAction(addComment);
-  const { showSuccessAlert, showFailAlert } = useAlertStore();
-  const apiStatusRef = useRef<undefined | string>();
+  const apiStatusRef = useRef<undefined | AlertStatusEnum>();
 
   const submitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -33,15 +32,14 @@ export default function CommentInput({ user, blogId }: propsType) {
   };
 
   useEffect(() => {
-    if (!isAddCommentPending) {
-      if (apiStatusRef.current === AlertStatusEnum.SUCCESS) {
-        showSuccessAlert("Add comment success!");
-      }
-      if (apiStatusRef.current === AlertStatusEnum.FAIL) {
-        showFailAlert("Add comment failed!");
-      }
-    }
-  }, [isAddCommentPending, showFailAlert, showSuccessAlert]);
+    handleAlert({
+      status: apiStatusRef.current,
+      alertText: {
+        success: "Add comment success!",
+        fail: "Add comment failed!",
+      },
+    });
+  }, [isAddCommentPending]);
 
   return (
     <div className="border border-commentBorder rounded-lg p-4 bg-commentBg mt-5">
