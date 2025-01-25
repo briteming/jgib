@@ -1,5 +1,5 @@
-const userName = "Jim876633";
-const repoName = "github-issues-blog";
-const showPerPage = 10;
+const userName = "briteming";
+const repoName = "jgib";
+const showPerPage = 5;
 
 export { repoName, showPerPage, userName };
