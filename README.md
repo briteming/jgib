@@ -48,7 +48,7 @@ CLIENT_SECRET="YOUR_GITHUB_APPLICATION_CLIENT_SECRET"
 Change the `userName` and `repoName` in `src/constants/commons.ts` for your own Github issues blog.
 
 ```typescript
-// src/constants/common.ts
+// src/constants/commons.ts
 const userName = "YOUR_GITHUB_USERNAME";
 const repoName = "YOUR_GITHUB_REPOSITORY_NAME";
 ```
