@@ -45,7 +45,7 @@ CLIENT_ID="YOUR_GITHUB_APPLICATION_CLIENT_ID"
 CLIENT_SECRET="YOUR_GITHUB_APPLICATION_CLIENT_SECRET"
 ```
 
-Change the `userName` and `repoName` in `src/constants/common.ts` for your own Github issues blog.
+Change the `userName` and `repoName` in `src/constants/commons.ts` for your own Github issues blog.
 
 ```typescript
 // src/constants/common.ts
